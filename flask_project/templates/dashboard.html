@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+<style>
+body{
+font-family:Arial;
+background:#f4f6ff;
+padding:40px;
+}
+.box{
+background:white;
+padding:20px;
+border-radius:10px;
+max-width:600px;
+margin:auto;
+}
+button{
+background:#4CAF50;
+color:white;
+border:none;
+padding:8px;
+}
+a{
+margin-left:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Welcome {{ session['user'] }} 🎉</h2>
+
+{% if request.args.get('success') %}
+<p style="color:green;">File uploaded successfully!</p>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+<input type="file" name="file" required>
+<button>Upload</button>
+</form>
+
+<h3>Uploaded Files</h3>
+
+<ul>
+{% for file in files %}
+<li>
+{{ file }} ({{ sizes[file] }} KB)
+
+<a href="/download/{{ file }}">Download</a>
+<a href="/delete/{{ file }}" style="color:red;">Delete</a>
+</li>
+{% endfor %}
+</ul>
+
+<a href="/logout">Logout</a>
+
+</div>
+
+</body>
+</html>
+
+</html>
